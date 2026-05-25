@@ -1,0 +1,28 @@
+---
+- name: Install Docker
+  apt:
+    name: "{{ docker_packages }}"
+    state: present
+    update_cache: yes
+
+- name: Start Docker service (skip if inside container)
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  ignore_errors: yes
+
+- name: Add devops user to docker group
+  user:
+    name: "{{ app_user }}"
+    groups: docker
+    append: yes
+
+- name: Verify Docker is installed
+  command: docker --version
+  register: docker_version
+  changed_when: false
+
+- name: Print Docker version
+  debug:
+    msg: "Docker installed: {{ docker_version.stdout }}"

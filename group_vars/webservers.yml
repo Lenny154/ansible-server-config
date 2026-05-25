@@ -1,0 +1,17 @@
+---
+app_image: "bucle154/cicd-pipeline-demo:latest"
+app_port: 3000
+app_name: "cicd-app"
+node_env: "production"
+
+docker_packages:
+  - docker.io
+
+system_packages:
+  - curl
+  - wget
+  - git
+  - htop
+
+app_user: "devops"
+app_group: "devops"

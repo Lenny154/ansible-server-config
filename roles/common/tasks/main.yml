@@ -1,0 +1,27 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install system packages
+  apt:
+    name: "{{ system_packages }}"
+    state: present
+
+- name: Create devops group
+  group:
+    name: "{{ app_group }}"
+    state: present
+
+- name: Create devops user
+  user:
+    name: "{{ app_user }}"
+    group: "{{ app_group }}"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+
+- name: Print setup complete
+  debug:
+    msg: "Common setup complete on {{ inventory_hostname }}"

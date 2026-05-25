@@ -1,0 +1,37 @@
+networks:
+  ansible-test:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+  server1:
+    image: ubuntu-sshd:local
+    container_name: server1
+    hostname: server1
+    networks:
+      ansible-test:
+        ipv4_address: 172.20.0.11
+    ports:
+      - "2221:22"
+
+  server2:
+    image: ubuntu-sshd:local
+    container_name: server2
+    hostname: server2
+    networks:
+      ansible-test:
+        ipv4_address: 172.20.0.12
+    ports:
+      - "2222:22"
+
+  server3:
+    image: ubuntu-sshd:local
+    container_name: server3
+    hostname: server3
+    networks:
+      ansible-test:
+        ipv4_address: 172.20.0.13
+    ports:
+      - "2223:22"
